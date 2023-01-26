@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Cinema.SeatsPage"
+             BackgroundColor="#1B1A28"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             NavigationPage.HasNavigationBar="False"
+>
+    <Grid RowDefinitions="Auto, Auto, *" Padding="30" RowSpacing="30">
+        <StackLayout Orientation="Horizontal" Margin="0,20" VerticalOptions="Start" Spacing="20">
+            <Image Source="{Binding SelectedTicket.Image}" Aspect="AspectFill" WidthRequest="70" HeightRequest="90" 
+                   HorizontalOptions="Start"/>
+            <StackLayout>
+                <Label Text="{Binding SelectedTicket.MovieTitle}" TextColor="White" FontSize="20"/>
+                <StackLayout Orientation="Horizontal" Spacing="15">
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="calendar.png" HeightRequest="15" WidthRequest="15"/>
+                        <Label Text="{Binding SelectedTicket.ShowingDate, StringFormat='{0:dd.MM.yyyy}'}" 
+                               TextColor="#8989CB" FontSize="12" VerticalOptions="Center"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Image Source="time.png" HeightRequest="15" WidthRequest="15"/>
+                        <Label Text="{Binding SelectedTicket.ShowingDate, StringFormat='{0:h:mm tt}'}" 
+                               TextColor="#8989CB" FontSize="12" VerticalOptions="Center"/> <!--Note use of date-time formats-->
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <BoxView BackgroundColor="White" Opacity="0.2" HeightRequest="1" VerticalOptions="End"/>
+        <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="1" Spacing="30" >
+            <Path Stroke="#00b7fc" Aspect="Fill" StrokeThickness="10" HeightRequest="30" 
+                  Data="M0,0S74.587-33.916,148.078-33.916,293.962,0,293.962,0"/> <!--Note use of coordinates-like data path to create curved view--> <!--Path is pulling data in from the code-behind-->
+            <skia:SKCanvasView x:Name="canvasView" HeightRequest="320" WidthRequest="350" HorizontalOptions="Center" PaintSurface="SKCanvasView_PaintSurface"/> <!--Need to clarify exactly what SkiaSharp does-->
+            <BoxView BackgroundColor="White" Opacity="0.2" HeightRequest="1" VerticalOptions="Center"/>
+            <StackLayout Orientation="Horizontal" Spacing="30" HorizontalOptions="Center"> <!--This is creating the seat key shown at to bottom of the page-->
+                <StackLayout Orientation="Horizontal">
+                    <Rectangle Stroke="#353551" StrokeThickness="1" HeightRequest="15" WidthRequest="15"
+                               VerticalOptions="Center"/>
+                    <Label Text="Available" TextColor="White" FontSize="14" VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Rectangle Fill="#353551" HeightRequest="15" WidthRequest="15" VerticalOptions="Center"/>
+                    <Label Text="Reserved" TextColor="White" FontSize="14" VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Rectangle Fill="#9747FF" HeightRequest="15" WidthRequest="15" VerticalOptions="Center"/>
+                    <Label Text="Your Seats" TextColor="White" FontSize="14" VerticalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <Button Grid.Row="2" Text="Buy More Tickets" TextColor="White" WidthRequest="250" HeightRequest="100" 
+                CornerRadius="20" BackgroundColor="#9747FF"  HorizontalOptions="Center" VerticalOptions="End"
+                FontSize="15" FontAttributes="Bold"/>
+    </Grid>
+</ContentPage>
